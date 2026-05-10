@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Arsenal | Wagwan Family</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white h-screen flex overflow-hidden">
+
+    <aside class="w-64 bg-neutral-950 border-r border-neutral-900 hidden md:flex flex-col">
+        <div class="h-20 flex items-center px-8 border-b border-neutral-900">
+            <a href="{% url 'home' %}" class="text-xl font-black tracking-widest uppercase">Wagwan<span class="text-[#FF4500]">Family</span></a>
+        </div>
+        <nav class="mt-8 px-4 space-y-2 flex-1">
+            <a href="{% url 'my_arsenal' %}" class="block px-4 py-3 bg-[#FF4500] font-bold text-sm uppercase tracking-widest">Dashboard</a>
+            <a href="{% url 'discipline_engine' %}" class="block px-4 py-3 text-gray-400 hover:text-white text-sm uppercase tracking-widest">Discipline Engine</a>
+            <a href="{% url 'mission_map' %}" class="flex items-center px-4 py-3 text-sm font-bold uppercase tracking-widest text-gray-400 hover:text-white hover:bg-neutral-900 transition-all">
+               Mission Map
+            </a>
+            <a href="{% url 'leaderboard' %}" class="flex items-center px-4 py-3 text-sm font-bold uppercase tracking-widest text-gray-400 hover:text-white hover:bg-neutral-900 transition-all">
+               Leaderboard
+             </a>
+            <a href="{% url 'arsenal_settings' %}" class="block px-4 py-3 text-gray-400 hover:text-white text-sm uppercase tracking-widest">Settings</a>
+        </nav>
+    </aside>
+
+    <main class="flex-1 overflow-y-auto p-6 md:p-12">
+        <div class="max-w-5xl mx-auto">
+            <div class="bg-neutral-950 border border-neutral-900 p-8 mb-12 text-center">
+                <span class="text-[0.60rem] font-black text-gray-500 uppercase tracking-widest block mb-2">Momemtum Score</span>
+                <h2 class="text-7xl font-black" id="streak-count">{{ streak.current_streak }}</h2>
+                <span class="text-xs font-bold text-[#FF4500] uppercase tracking-widest mt-2 block">Day Streak</span>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-neutral-950 border border-neutral-900 p-6">
+                    <h2 class="text-lg font-bold uppercase tracking-widest border-b border-neutral-800 pb-4 mb-4 text-[#FF4500]">Daily Protocols</h2>
+                    <div class="space-y-4">
+                        {% for habit in habits %}
+                        <label class="flex items-center gap-4 bg-black p-4 border border-neutral-800 cursor-pointer hover:border-[#FF4500] transition">
+                            <input type="checkbox" class="habit-toggle w-5 h-5 accent-[#FF4500]" 
+                                   data-id="{{ habit.id }}" {% if habit.done %}checked{% endif %}>
+                            <span class="text-sm font-bold {% if habit.done %}text-gray-600 line-through{% endif %}" id="habit-text-{{ habit.id }}">
+                                {{ habit.name }}
+                            </span>
+                        </label>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="bg-neutral-950 border border-neutral-900 p-6">
+                    <h2 class="text-lg font-bold uppercase tracking-widest border-b border-neutral-800 pb-4 mb-4 text-[#FF4500]">Mission Map</h2>
+                    <div class="space-y-4">
+                        {% for mission in missions %}
+                        <div class="bg-black p-4 border border-neutral-800 flex justify-between items-center">
+                            <span class="text-sm font-bold">{{ mission.title }}</span>
+                            <form method="POST" action="{% url 'complete_mission' mission.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="text-[0.60rem] font-bold text-gray-500 hover:text-green-500 uppercase tracking-widest">Complete</button>
+                            </form>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // AJAX Toggle Logic
+        document.querySelectorAll('.habit-toggle').forEach(box => {
+            box.addEventListener('change', function() {
+                const habitId = this.dataset.id;
+                const text = document.getElementById(`habit-text-${habitId}`);
+                
+                fetch(`/tools/log-habit/${habitId}/`, {
+                    method: 'POST',
+                    headers: { 'X-CSRFToken': '{{ csrf_token }}' }
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        text.classList.add('text-gray-600', 'line-through');
+                        document.getElementById('streak-count').innerText = data.current_streak;
+                    } else {
+                        text.classList.remove('text-gray-600', 'line-through');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transmission Received | Wagwan Family</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-black text-white h-screen flex items-center justify-center relative overflow-hidden selection:bg-[#FF4500] selection:text-white">
+
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-green-500 rounded-full mix-blend-multiply filter blur-[200px] opacity-10 pointer-events-none"></div>
+
+    <div class="w-full max-w-lg p-8 md:p-12 bg-neutral-950/90 backdrop-blur-md border border-neutral-900 relative z-10 shadow-2xl text-center">
+        
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-500/10 text-green-500 mb-6">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        </div>
+
+        <h1 class="text-3xl font-black uppercase tracking-widest text-white mb-4">Transmission <span class="text-green-500">Received</span></h1>
+        
+        <div class="space-y-4 text-gray-400 font-light text-sm tracking-wide mb-10 text-left bg-black border border-neutral-800 p-6">
+            <p><strong class="text-white">STEP 1:</strong> Check your inbox. The first protocol has been dispatched.</p>
+            <p><strong class="text-white">STEP 2:</strong> Don't stop here. Amateurs read emails. Emperors use systems.</p>
+        </div>
+
+        <a href="{% url 'register' %}" class="block w-full bg-[#FF4500] hover:bg-[#CC3700] text-white font-bold py-4 text-xs uppercase tracking-widest transition shadow-[0_0_15px_rgba(255,69,0,0.2)] mb-4">
+            Create Free Account Now
+        </a>
+        
+        <a href="{% url 'home' %}" class="block w-full bg-transparent border border-white hover:bg-white hover:text-black text-white font-bold py-4 text-xs uppercase tracking-widest transition">
+            Return to Frontline
+        </a>
+    </div>
+</body>
+</html>

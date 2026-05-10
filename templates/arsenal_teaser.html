@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build Your Arsenal | Wagwan Family</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-black text-white h-screen flex flex-col justify-center items-center text-center px-4 selection:bg-[#FF4500]">
+    
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#FF4500] rounded-full mix-blend-multiply filter blur-[150px] opacity-20 pointer-events-none"></div>
+
+    <div class="z-10 max-w-2xl">
+        <h1 class="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-6">
+            Build Your <span class="text-[#FF4500]">Arsenal</span>
+        </h1>
+        <p class="text-gray-400 text-lg md:text-xl mb-10 tracking-wide">
+            Your personal growth headquarters. Track habits, join exclusive challenges, save premium content, and map your missions. 
+        </p>
+        
+        <div class="flex flex-col md:flex-row gap-4 justify-center">
+            <a href="{% url 'register' %}" class="px-8 py-4 bg-[#FF4500] text-white font-black uppercase tracking-widest hover:bg-orange-600 transition-colors">
+                Join Free to Unlock
+            </a>
+            <a href="{% url 'login' %}" class="px-8 py-4 border border-neutral-700 text-white font-bold uppercase tracking-widest hover:border-white transition-colors">
+                I Have An Account
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>

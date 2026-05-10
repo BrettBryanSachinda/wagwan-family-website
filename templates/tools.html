@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="relative py-24 bg-black border-b border-neutral-900 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-neutral-900/50 to-black z-0"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-4 text-center">
+        <span class="text-[#FF4500] font-bold uppercase tracking-widest text-sm mb-4 block">
+            The Control Room
+        </span>
+        <h1 class="text-5xl md:text-7xl font-black uppercase tracking-tighter text-white mb-6 drop-shadow-lg">
+            Build Systems.<br><span class="text-neutral-500">Destroy Excuses.</span>
+        </h1>
+        <p class="text-gray-400 md:text-lg max-w-2xl mx-auto font-light mb-10">
+            Motivation is temporary. Systems are permanent. Use these elite tools to sharpen discipline, focus, and consistency every single day.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="#arsenal" class="px-8 py-4 bg-[#FF4500] hover:bg-[#CC3700] text-white font-bold uppercase tracking-widest text-sm transition-all duration-300 transform hover:scale-105 shadow-[0_0_15px_rgba(255,69,0,0.4)]">
+                Deploy Tools
+            </a>
+        </div>
+    </div>
+</section>
+
+{% if user.is_authenticated %}
+<section class="bg-neutral-950 border-b border-neutral-900 py-8">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-black border border-neutral-800 p-4 text-center flex flex-col items-center justify-center">
+                <svg class="w-8 h-8 text-[#FF4500] mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"></path></svg>
+                <span class="text-3xl font-black text-white">{{ streak.current_streak|default:"0" }}</span>
+                <span class="text-xs text-gray-500 uppercase tracking-widest mt-1">Day Streak</span>
+            </div>
+            <div class="bg-black border border-neutral-800 p-4 text-center flex flex-col items-center justify-center">
+                <svg class="w-8 h-8 text-[#FF4500] mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span class="text-3xl font-black text-white">{{ completed_today_count }}/{{ total_habits }}</span>
+                <span class="text-xs text-gray-500 uppercase tracking-widest mt-1">Habits Today</span>
+            </div>
+            <div class="bg-black border border-neutral-800 p-4 text-center flex flex-col items-center justify-center">
+                <svg class="w-8 h-8 text-[#FF4500] mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                <span class="text-3xl font-black text-white">{{ completed_missions_count }}</span>
+                <span class="text-xs text-gray-500 uppercase tracking-widest mt-1">Missions Cleared</span>
+            </div>
+            <div class="bg-black border border-neutral-800 p-4 text-center flex flex-col items-center justify-center">
+                <svg class="w-8 h-8 text-[#FF4500] mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                <span class="text-3xl font-black text-white">100%</span>
+                <span class="text-xs text-gray-500 uppercase tracking-widest mt-1">Combat Ready</span>
+            </div>
+        </div>
+    </div>
+</section>
+{% else %}
+<section class="bg-[#FF4500] py-4 border-y border-neutral-800">
+    <div class="max-w-7xl mx-auto px-4 text-center flex flex-col sm:flex-row justify-center items-center gap-4">
+        <span class="text-black font-black uppercase tracking-widest text-sm">System Offline: Identity unverified.</span>
+        <a href="{% url 'login' %}?next={{ request.path }}" class="bg-black text-white px-4 py-2 text-xs font-bold uppercase tracking-widest hover:bg-neutral-900 transition">Log In to Sync Data</a>
+    </div>
+</section>
+{% endif %}
+
+<section id="arsenal" class="py-24 bg-black px-4">
+    <div class="max-w-7xl mx-auto">
+        <div class="mb-12">
+            <h2 class="text-3xl font-black uppercase tracking-wider text-white border-l-4 border-[#FF4500] pl-4">Standard Issue Arsenal</h2>
+            <p class="text-gray-500 mt-2 font-light">Your daily non-negotiable systems.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <div class="bg-neutral-900 border border-neutral-800 p-8 flex flex-col relative overflow-hidden">
+                <div class="z-10 mb-6">
+                    <span class="text-[#FF4500] text-xs font-bold uppercase tracking-widest mb-2 block">Habit Tracker</span>
+                    <h3 class="text-2xl font-black text-white uppercase mb-2">Discipline Engine</h3>
+                    <p class="text-gray-400 font-light text-sm">Track your daily non-negotiables.</p>
+                </div>
+
+                {% if user.is_authenticated %}
+                    <form method="POST" action="{% url 'add_habit' %}" class="flex gap-2 mb-6">
+                        {% csrf_token %}
+                        <input type="text" name="habit_name" placeholder="E.g., Read 10 Pages" class="w-full bg-black border border-neutral-700 text-white px-4 py-2 text-sm focus:outline-none focus:border-[#FF4500]" required>
+                        <button type="submit" class="bg-[#FF4500] text-white px-6 font-bold uppercase tracking-widest text-xs hover:bg-[#CC3700] transition">+</button>
+                    </form>
+
+                    <div class="space-y-3 overflow-y-auto max-h-[300px] pr-2">
+                        {% for habit in habits %}
+                            <div class="flex items-center justify-between bg-black border border-neutral-800 p-4">
+                                <span class="text-white font-semibold uppercase tracking-wide text-sm">{{ habit.name }}</span>
+                                <form method="POST" action="{% url 'log_habit' habit.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="text-xs font-bold uppercase tracking-widest px-4 py-2 border border-[#FF4500] text-[#FF4500] hover:bg-[#FF4500] hover:text-white transition">
+                                        Execute
+                                    </button>
+                                </form>
+                            </div>
+                        {% empty %}
+                            <p class="text-gray-500 text-xs uppercase tracking-widest text-center py-4">No habits set. Initialize the engine.</p>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="mt-auto">
+                        <a href="{% url 'login' %}?next={{ request.path }}" class="block w-full text-center bg-neutral-800 text-gray-400 py-3 uppercase text-sm font-bold tracking-widest hover:text-white transition">Log in to Access</a>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="bg-neutral-900 border border-neutral-800 p-8 flex flex-col relative overflow-hidden">
+                <div class="z-10 mb-6">
+                    <span class="text-[#FF4500] text-xs font-bold uppercase tracking-widest mb-2 block">Goal Planner</span>
+                    <h3 class="text-2xl font-black text-white uppercase mb-2">Mission Map</h3>
+                    <p class="text-gray-400 font-light text-sm">Set targets. Create deadlines. Execute.</p>
+                </div>
+
+                {% if user.is_authenticated %}
+                    <form method="POST" action="{% url 'add_mission' %}" class="flex flex-col gap-2 mb-6">
+                        {% csrf_token %}
+                        <input type="text" name="title" placeholder="Mission Target (e.g., Launch Business)" class="w-full bg-black border border-neutral-700 text-white px-4 py-2 text-sm focus:outline-none focus:border-[#FF4500]" required>
+                        <div class="flex gap-2">
+                            <input type="date" name="deadline" class="w-full bg-black border border-neutral-700 text-white px-4 py-2 text-sm focus:outline-none focus:border-[#FF4500] text-gray-400" required>
+                            <button type="submit" class="bg-[#FF4500] text-white px-6 font-bold uppercase tracking-widest text-xs hover:bg-[#CC3700] transition">Set</button>
+                        </div>
+                    </form>
+
+                    <div class="space-y-3 overflow-y-auto max-h-[250px] pr-2">
+                        {% for mission in active_missions %}
+                            <div class="flex items-center justify-between bg-black border border-neutral-800 p-4">
+                                <div>
+                                    <span class="text-white font-semibold uppercase tracking-wide text-sm block">{{ mission.title }}</span>
+                                    <span class="text-gray-500 text-[0.65rem] uppercase tracking-widest">Target: {{ mission.deadline|date:"M d, Y" }}</span>
+                                </div>
+                                <form method="POST" action="{% url 'complete_mission' mission.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="text-xs font-bold uppercase tracking-widest px-4 py-2 border border-green-600 text-green-500 hover:bg-green-600 hover:text-white transition">
+                                        Done
+                                    </button>
+                                </form>
+                            </div>
+                        {% empty %}
+                            <p class="text-gray-500 text-xs uppercase tracking-widest text-center py-4">No active missions. Set your targets.</p>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="mt-auto">
+                        <a href="{% url 'login' %}?next={{ request.path }}" class="block w-full text-center bg-neutral-800 text-gray-400 py-3 uppercase text-sm font-bold tracking-widest hover:text-white transition">Log in to Access</a>
+                    </div>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="py-24 bg-neutral-950 px-4 border-t border-neutral-900 relative overflow-hidden">
+    <div class="absolute right-0 top-0 w-1/2 h-full bg-gradient-to-l from-[#FF4500]/5 to-transparent pointer-events-none"></div>
+    
+    <div class="max-w-7xl mx-auto relative z-10">
+        <div class="mb-12 flex items-center gap-4">
+            <svg class="w-8 h-8 text-[#FF4500]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+            <h2 class="text-3xl font-black uppercase tracking-wider text-white">Premium Arsenal</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 opacity-70 hover:opacity-100 transition-opacity duration-500">
+            
+            <div class="bg-black border border-neutral-800 p-8 flex flex-col items-center justify-center text-center relative overflow-hidden group">
+                <div class="absolute inset-0 bg-neutral-900/50 backdrop-blur-[2px] z-20 flex flex-col items-center justify-center group-hover:backdrop-blur-none transition-all duration-500">
+                    <svg class="w-12 h-12 text-[#FF4500] mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                    <span class="text-white font-bold uppercase tracking-widest bg-black px-4 py-2 border border-[#FF4500]">Unlock Requirement</span>
+                </div>
+                <h3 class="text-2xl font-black text-gray-300 uppercase mb-2">Elite Routine Builder</h3>
+                <p class="text-gray-500 font-light text-sm">Construct millisecond-perfect daily schedules used by top-tier performers.</p>
+            </div>
+
+            <div class="bg-black border border-neutral-800 p-8 flex flex-col items-center justify-center text-center relative overflow-hidden group">
+                <div class="absolute inset-0 bg-neutral-900/50 backdrop-blur-[2px] z-20 flex flex-col items-center justify-center group-hover:backdrop-blur-none transition-all duration-500">
+                    <svg class="w-12 h-12 text-[#FF4500] mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                    <span class="text-white font-bold uppercase tracking-widest bg-black px-4 py-2 border border-[#FF4500]">Unlock Requirement</span>
+                </div>
+                <h3 class="text-2xl font-black text-gray-300 uppercase mb-2">Personal Scorecard</h3>
+                <p class="text-gray-500 font-light text-sm">Advanced metrics, weekly growth analysis, and failure pattern detection.</p>
+            </div>
+
+        </div>
+
+        <div class="mt-12 text-center">
+            <button class="bg-transparent border border-neutral-700 text-neutral-500 px-8 py-3 font-bold uppercase tracking-widest text-sm cursor-not-allowed">
+                Premium Launching Soon
+            </button>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

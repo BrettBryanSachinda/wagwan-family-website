@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="py-24 bg-black min-h-screen px-4">
+    <div class="max-w-5xl mx-auto">
+        
+        <div class="mb-8 border-b border-neutral-800 pb-6">
+            <span class="text-[#FF4500] font-bold uppercase tracking-widest text-sm mb-2 block">
+                {% if article.category %}{{ article.category.name }}{% else %}{{ article.get_content_type_display }}{% endif %}
+            </span>
+            <h1 class="text-4xl md:text-5xl font-black uppercase tracking-wider text-white mb-4">
+                {{ article.title }}
+            </h1>
+            <p class="text-gray-400 font-light">{{ article.views_count }} Views • Dropped {{ article.created_at|date:"M d, Y" }}</p>
+        </div>
+
+        <div class="w-full bg-neutral-900 border border-neutral-800 mb-12 overflow-hidden">
+            
+            {% if user.is_authenticated %}
+                {% if article.content_type == 'video' and article.video_file %}
+                    <video controls controlsList="nodownload" class="w-full h-auto block">
+                        <source src="{{ article.video_file.url }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                {% elif article.content_type == 'video' and article.video_url %}
+                    <div class="relative w-full" style="padding-top: 56.25%;">
+                        <iframe class="absolute inset-0 w-full h-full"
+                            src="{{ article.video_url }}"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                {% elif article.cover_image %}
+                    <img src="{{ article.cover_image.url }}" alt="{{ article.title }}" class="w-full h-auto block">
+                {% else %}
+                    <div class="p-12 text-center">
+                        <p class="text-gray-500 uppercase tracking-widest text-sm">Transmission loaded. Read below.</p>
+                    </div>
+                {% endif %}
+                
+            {% else %}
+                <div class="relative min-h-[320px] flex items-center justify-center">
+                {% if article.cover_image %}
+                    <div class="absolute inset-0 bg-cover bg-center blur-md opacity-30" style="background-image: url('{{ article.cover_image.url }}');"></div>
+                {% else %}
+                    <div class="absolute inset-0 bg-gradient-to-br from-neutral-900 to-black opacity-80"></div>
+                {% endif %}
+                
+                <div class="relative z-10 flex flex-col items-center text-center p-8 border border-[#FF4500]/30 bg-black/60 shadow-2xl max-w-md mx-4">
+                    <svg class="w-16 h-16 text-[#FF4500] mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                    </svg>
+                    <h2 class="text-2xl font-black uppercase text-white mb-3 tracking-widest">Access Restricted</h2>
+                    <p class="text-gray-300 mb-8 font-light text-sm">You must be a member of the Wagwan Family to view this transmission.</p>
+                    <div class="flex flex-col sm:flex-row gap-3 w-full justify-center">
+                        <a href="{% url 'login' %}?next={{ request.path }}" class="px-8 py-4 bg-[#FF4500] hover:bg-[#CC3700] text-white font-bold uppercase tracking-widest text-sm transition-all">
+                            Log In to Watch
+                        </a>
+                        <a href="{% url 'register' %}?next={{ request.path }}" class="px-8 py-4 bg-transparent border border-[#FF4500] text-[#FF4500] hover:bg-[#FF4500] hover:text-white font-bold uppercase tracking-widest text-sm transition-all">
+                            Enlist Now
+                        </a>
+                    </div>
+                </div>
+                </div>
+            {% endif %}
+        </div>
+        
+        {% if article.content and user.is_authenticated %}
+        <div class="max-w-3xl mx-auto">
+            <div class="prose prose-invert prose-lg max-w-none text-gray-300 leading-relaxed text-base font-light" style="white-space: pre-wrap;">{{ article.content }}</div>
+        </div>
+        {% endif %}
+
+    </div>
+</section>
+{% endblock content %}

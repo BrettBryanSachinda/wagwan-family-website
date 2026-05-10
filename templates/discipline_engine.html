@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discipline Engine | Wagwan Family</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-black text-white h-screen flex overflow-hidden selection:bg-[#FF4500]">
+
+    <aside class="w-64 bg-neutral-950 border-r border-neutral-900 hidden md:flex flex-col">
+        <div class="h-20 flex items-center px-8 border-b border-neutral-900">
+            <a href="{% url 'home' %}" class="text-xl font-black tracking-widest uppercase flex flex-col">
+                <span>Wagwan<span class="text-[#FF4500]">Family</span></span>
+                <span class="text-[0.60rem] text-gray-500 tracking-widest">ELITE ARSENAL</span>
+            </a>
+        </div>
+        <nav class="mt-8 px-4 space-y-2 flex-1">
+            <a href="{% url 'my_arsenal' %}" class="flex items-center px-4 py-3 text-gray-400 hover:bg-neutral-900 hover:text-white transition rounded-sm text-sm uppercase tracking-widest">Dashboard</a>
+            <a href="{% url 'discipline_engine' %}" class="flex items-center px-4 py-3 bg-[#FF4500] text-white font-bold rounded-sm text-sm uppercase tracking-widest">Discipline Engine</a>
+            <a href="{% url 'mission_map' %}" class="flex items-center px-4 py-3 text-gray-400 hover:bg-neutral-900 hover:text-white transition rounded-sm text-sm uppercase tracking-widest">Mission Map</a>
+            <a href="{% url 'leaderboard' %}" class="flex items-center px-4 py-3 text-gray-400 hover:bg-neutral-900 hover:text-white transition rounded-sm text-sm uppercase tracking-widest">Leaderboard</a>
+            <a href="{% url 'arsenal_settings' %}" class="flex items-center px-4 py-3 text-gray-400 hover:bg-neutral-900 hover:text-white transition rounded-sm text-sm uppercase tracking-widest">Settings</a>
+        </nav>
+    </aside>
+
+    <main class="flex-1 flex flex-col overflow-y-auto">
+        <div class="max-w-4xl w-full mx-auto p-6 md:p-12">
+            
+            <header class="mb-12">
+                <h1 class="text-3xl font-black uppercase tracking-tighter">The <span class="text-[#FF4500]">Engine</span></h1>
+                <p class="text-gray-500 text-sm mt-2">Configure your daily non-negotiables. These are the bricks of your empire.</p>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <div class="md:col-span-1">
+                    <div class="bg-neutral-950 p-6 border border-neutral-900">
+                        <form method="POST" action="{% url 'add_habit' %}">
+                            {% csrf_token %}
+                            <label class="block text-[0.60rem] font-black text-gray-500 uppercase tracking-widest mb-4">Protocol Name</label>
+                            <input type="text" name="habit_name" placeholder="e.g. 5AM Wake Up" required
+                                   class="w-full bg-black border border-neutral-800 text-white px-4 py-3 mb-4 focus:outline-none focus:border-[#FF4500] text-sm">
+                            <button type="submit" class="w-full bg-[#FF4500] text-white font-black text-xs uppercase tracking-widest py-3 hover:bg-orange-600 transition">
+                                Add to Engine
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="md:col-span-2">
+                    <div class="space-y-3">
+                        {% for habit in habits %}
+                        <div class="flex justify-between items-center bg-neutral-950 p-4 border border-neutral-900 hover:border-neutral-700 transition">
+                            <span class="font-bold text-sm tracking-wide text-white">{{ habit.name }}</span>
+                            <form method="POST" action="{% url 'delete_habit' habit.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="text-[0.60rem] text-gray-500 hover:text-red-500 uppercase tracking-widest font-bold transition">
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
+                        {% empty %}
+                        <div class="bg-neutral-950 border border-neutral-900 p-8 text-center">
+                            <p class="text-gray-500 text-xs font-bold uppercase tracking-widest">No protocols installed.</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+</body>
+</html>

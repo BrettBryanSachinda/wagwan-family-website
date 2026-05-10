@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Tracking | Wagwan Family</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #FF4500; }
+    </style>
+</head>
+<body class="bg-black text-white h-screen flex overflow-hidden selection:bg-[#FF4500] selection:text-white">
+
+    <aside class="w-64 bg-neutral-950 border-r border-neutral-900 flex flex-col justify-between hidden md:flex">
+        <div>
+            <div class="h-20 flex items-center px-8 border-b border-neutral-900">
+                <a href="{% url 'home' %}" class="text-xl font-black tracking-widest uppercase flex flex-col">
+                    <span>Wagwan<span class="text-[#FF4500]">Family</span></span>
+                    <span class="text-[0.60rem] text-gray-500 tracking-widest">COMMAND CENTER</span>
+                </a>
+            </div>
+
+            <nav class="mt-8 px-4 space-y-2">
+                <a href="{% url 'tools' %}" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-neutral-900 transition-colors text-sm font-bold uppercase tracking-wide">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                    Overview
+                </a>
+                <a href="/admin/core/article/" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-neutral-900 transition-colors text-sm font-bold uppercase tracking-wide">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
+                    Content
+                </a>
+                <a href="/admin/auth/user/" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-neutral-900 transition-colors text-sm font-bold uppercase tracking-wide">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    Community
+                </a>
+                <a href="/admin/core/subscriber/" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-neutral-900 transition-colors text-sm font-bold uppercase tracking-wide">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    Subscribers
+                </a>
+                <a href="{% url 'command_center_tools' %}" class="flex items-center gap-3 px-4 py-3 bg-[#FF4500]/10 text-[#FF4500] border-l-2 border-[#FF4500] text-sm font-bold uppercase tracking-wide">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    Tracking
+                </a>
+            </nav>
+        </div>
+
+        <div class="p-4 border-t border-neutral-900">
+            <div class="flex items-center gap-3 px-4 py-3">
+                <div class="w-8 h-8 rounded-full bg-[#FF4500] flex items-center justify-center text-white font-bold text-xs">S</div>
+                <div class="flex flex-col">
+                    <span class="text-xs font-bold text-white uppercase tracking-widest">{{ request.user.username }}</span>
+                    <a href="/admin/logout/" class="text-[0.65rem] text-gray-500 hover:text-[#FF4500] uppercase tracking-wider">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="flex-1 overflow-y-auto bg-black relative">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-[#FF4500] rounded-full mix-blend-multiply filter blur-[150px] opacity-10 pointer-events-none"></div>
+
+        <div class="p-8 md:p-12 max-w-7xl mx-auto relative z-10">
+            
+            <div class="mb-10">
+                <h1 class="text-3xl font-black text-white uppercase tracking-widest flex items-center gap-3">
+                    SYSTEM <span class="text-[#FF4500]">TRACKING</span>
+                </h1>
+                <p class="text-[#FF4500] text-sm font-bold tracking-widest uppercase mt-2">
+                    Daily Directive: Monitor the troops. Reward consistency.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+                <div class="bg-[#111] border border-neutral-800 p-6 flex flex-col justify-between group hover:border-[#FF4500] transition-colors">
+                    <span class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-4 block">Active Habits</span>
+                    <span class="text-4xl font-black text-white group-hover:text-[#FF4500] transition-colors">{{ total_active_habits }}</span>
+                </div>
+                <div class="bg-[#111] border border-neutral-800 p-6 flex flex-col justify-between group hover:border-[#FF4500] transition-colors">
+                    <span class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-4 block">Active Missions</span>
+                    <span class="text-4xl font-black text-white group-hover:text-[#FF4500] transition-colors">{{ total_active_missions }}</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                
+                <div class="bg-neutral-950 border border-neutral-900 p-8">
+                    <h2 class="text-lg font-bold text-white uppercase tracking-widest mb-6 border-b border-neutral-800 pb-4">
+                        Top Operators (Streaks)
+                    </h2>
+                    <div class="space-y-4">
+                        {% for streak in top_streaks %}
+                        <div class="flex justify-between items-center bg-black p-4 border-l-2 {% if forloop.counter <= 3 %}border-[#FF4500]{% else %}border-neutral-700{% endif %}">
+                            <div>
+                                <span class="text-white font-bold block">{{ streak.user.username }}</span>
+                                <span class="text-xs text-gray-500 uppercase tracking-widest">Best: {{ streak.best_streak }} Days</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-2xl font-black text-[#FF4500]">{{ streak.current_streak }}</span>
+                                <span class="text-[0.65rem] text-gray-500 uppercase tracking-widest block">Current</span>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <p class="text-gray-500 text-sm italic text-center py-4">No active streaks yet.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="bg-neutral-950 border border-neutral-900 p-8">
+                    <h2 class="text-lg font-bold text-white uppercase tracking-widest mb-6 border-b border-neutral-800 pb-4">
+                        Live Execution Feed
+                    </h2>
+                    <div class="space-y-4 overflow-y-auto max-h-[400px] pr-2">
+                        {% for log in recent_logs %}
+                        <div class="flex justify-between items-center bg-black p-4 border border-neutral-800">
+                            <div>
+                                <span class="text-white font-bold text-sm block">{{ log.habit.user.username }}</span>
+                                <span class="text-xs text-gray-400">Completed: {{ log.habit.name }}</span>
+                            </div>
+                            <span class="text-[0.65rem] font-bold uppercase tracking-widest text-green-500 border border-green-900 bg-green-900/20 px-2 py-1">
+                                Logged
+                            </span>
+                        </div>
+                        {% empty %}
+                        <p class="text-gray-500 text-sm italic text-center py-4">No actions logged today.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

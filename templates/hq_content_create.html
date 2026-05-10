@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Post | Wagwan HQ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        textarea, input[type="text"], input[type="url"], select { background: #0a0a0a; border: 1px solid #262626; color: white; padding: 0.75rem 1rem; width: 100%; outline: none; font-size: 0.875rem; transition: border-color 0.2s; }
+        textarea:focus, input:focus, select:focus { border-color: #FF4500; }
+        label { display: block; font-size: 0.65rem; font-weight: 800; color: #6b7280; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.5rem; }
+        select option { background: #0a0a0a; }
+    </style>
+</head>
+<body class="bg-black text-white h-screen flex overflow-hidden selection:bg-[#FF4500]">
+
+    <!-- SIDEBAR -->
+    <aside class="w-64 bg-neutral-950 border-r border-neutral-900 flex flex-col justify-between hidden md:flex flex-shrink-0">
+        <div>
+            <div class="h-20 flex items-center px-8 border-b border-neutral-900">
+                <a href="{% url 'home' %}" class="text-xl font-black tracking-widest uppercase flex flex-col">
+                    <span>Wagwan<span class="text-[#FF4500]">Family</span></span>
+                    <span class="text-[0.55rem] text-gray-500 tracking-widest">FOUNDER HQ</span>
+                </a>
+            </div>
+            <nav class="mt-8 px-4 space-y-1">
+                <a href="{% url 'founder_dashboard' %}" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-neutral-900 transition-colors text-sm font-bold uppercase tracking-wide">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                    Overview
+                </a>
+                <a href="{% url 'content_manager' %}" class="flex items-center gap-3 px-4 py-3 bg-[#FF4500]/10 text-[#FF4500] border-l-2 border-[#FF4500] text-sm font-bold uppercase tracking-wide">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
+                    Content
+                </a>
+                <a href="{% url 'user_manager' %}" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-neutral-900 transition-colors text-sm font-bold uppercase tracking-wide">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    Members
+                </a>
+                <a href="{% url 'subscriber_manager' %}" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-neutral-900 transition-colors text-sm font-bold uppercase tracking-wide">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    Subscribers
+                </a>
+                <a href="{% url 'command_center_tools' %}" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-neutral-900 transition-colors text-sm font-bold uppercase tracking-wide">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    Tracking
+                </a>
+            </nav>
+        </div>
+        <div class="p-4 border-t border-neutral-900">
+            <div class="flex items-center gap-3 px-4 py-3">
+                <div class="w-8 h-8 rounded-full bg-[#FF4500] flex items-center justify-center text-white font-black text-xs">{{ request.user.username|slice:":1"|upper }}</div>
+                <div class="flex flex-col">
+                    <span class="text-xs font-bold text-white uppercase tracking-widest">{{ request.user.username }}</span>
+                    <a href="{% url 'logout' %}" class="text-[0.6rem] text-gray-500 hover:text-[#FF4500] uppercase tracking-wider transition-colors">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="flex-1 overflow-y-auto bg-black">
+        <div class="p-8 md:p-12 max-w-4xl mx-auto">
+
+            <div class="mb-10 flex items-center gap-4">
+                <a href="{% url 'content_manager' %}" class="text-gray-600 hover:text-white transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                </a>
+                <div>
+                    <span class="text-[0.6rem] font-black text-[#FF4500] uppercase tracking-[0.3em] block mb-1">Content Manager</span>
+                    <h1 class="text-2xl font-black text-white uppercase tracking-widest">New <span class="text-[#FF4500]">Post</span></h1>
+                </div>
+            </div>
+
+            <form method="POST" enctype="multipart/form-data" class="space-y-6">
+                {% csrf_token %}
+
+                <div>
+                    <label>Title</label>
+                    <input type="text" name="title" placeholder="Enter post title..." required>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label>Category</label>
+                        <select name="category">
+                            <option value="">— No Category —</option>
+                            {% for cat in categories %}
+                            <option value="{{ cat.id }}">{{ cat.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <label>Content Type</label>
+                        <select name="content_type">
+                            <option value="article">Article</option>
+                            <option value="video">Video Transmission</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Status</label>
+                        <select name="status">
+                            <option value="draft">Draft</option>
+                            <option value="published">Published</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label>Content / Body</label>
+                    <textarea name="content" rows="10" placeholder="Write your content here..."></textarea>
+                </div>
+
+                <div>
+                    <label>Video URL (YouTube / Vimeo embed link)</label>
+                    <input type="url" name="video_url" placeholder="https://www.youtube.com/embed/...">
+                </div>
+
+                <div>
+                    <label>Cover Image</label>
+                    <input type="file" name="cover_image" accept="image/*" class="w-full bg-neutral-950 border border-neutral-800 text-white px-4 py-3 text-sm file:mr-4 file:py-1 file:px-4 file:border-0 file:text-xs file:font-bold file:uppercase file:tracking-widest file:bg-[#FF4500] file:text-white hover:file:bg-[#CC3700] file:cursor-pointer">
+                </div>
+
+                <div class="flex items-center gap-3 bg-neutral-950 border border-neutral-800 p-4">
+                    <input type="checkbox" name="is_premium" id="is_premium" class="w-5 h-5 accent-[#FF4500]">
+                    <label for="is_premium" class="text-white text-sm font-bold uppercase tracking-widest cursor-pointer mb-0" style="margin-bottom:0;">🔒 Premium Content (members only)</label>
+                </div>
+
+                <div class="flex gap-4 pt-4">
+                    <button type="submit" class="px-10 py-4 bg-[#FF4500] hover:bg-[#CC3700] text-white font-black uppercase tracking-widest text-sm transition-colors">
+                        Publish Post
+                    </button>
+                    <a href="{% url 'content_manager' %}" class="px-10 py-4 border border-neutral-700 text-white font-bold uppercase tracking-widest text-sm hover:border-white transition-colors">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

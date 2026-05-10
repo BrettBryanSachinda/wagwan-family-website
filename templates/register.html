@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Enlist | Wagwan Family</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        
+        input {
+            width: 100%;
+            background-color: #171717;
+            border: 1px solid #262626;
+            color: white;
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input:focus { border-color: #FF4500; }
+        label { display: block; font-size: 0.75rem; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+        .helptext { font-size: 0.65rem; color: #525252; margin-top: 0.5rem; display: block; line-height: 1.4; }
+        ul.errorlist { color: #ef4444; font-size: 0.75rem; margin-top: 0.25rem; list-style-type: none; padding: 0; }
+
+        /* Relative wrapper for the show password button */
+        .password-wrapper { position: relative; }
+        .toggle-password-btn {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #6b7280;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .toggle-password-btn:hover { color: #FF4500; }
+    </style>
+</head>
+<body class="bg-black text-white min-h-screen flex items-center justify-center relative overflow-x-hidden selection:bg-[#FF4500] selection:text-white py-12">
+
+    <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#FF4500] rounded-full mix-blend-multiply filter blur-[180px] opacity-10 pointer-events-none"></div>
+
+    <div class="w-full max-w-md p-8 md:p-10 bg-neutral-950/90 backdrop-blur-md border border-neutral-900 relative z-10 shadow-2xl">
+        
+        <div class="text-center mb-10">
+            <a href="/" class="text-2xl font-black tracking-widest uppercase flex flex-col items-center">
+                <span>Wagwan<span class="text-[#FF4500]">Family</span></span>
+            </a>
+            <h1 class="mt-4 text-sm font-bold uppercase tracking-widest text-gray-400">Join the Ranks</h1>
+        </div>
+
+        {% if messages %}
+        <div class="mb-6 space-y-2">
+            {% for message in messages %}
+            <div class="p-4 bg-neutral-900 border-l-4 {% if message.tags == 'success' %}border-[#FF4500] text-white{% else %}border-red-500 text-white{% endif %} text-xs font-bold uppercase tracking-widest">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <form method="POST" action="{% url 'register' %}" class="space-y-6">
+            {% csrf_token %}
+            
+            {% for field in form %}
+            <div>
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.help_text %}
+                    <span class="helptext">{{ field.help_text|safe }}</span>
+                {% endif %}
+                {% if field.errors %}
+                    {{ field.errors }}
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="w-full mt-6 bg-[#FF4500] hover:bg-[#CC3700] text-white font-bold py-4 text-xs uppercase tracking-widest transition shadow-[0_0_15px_rgba(255,69,0,0.2)]">
+                Enlist Now
+            </button>
+        </form>
+
+        <div class="mt-8 border-t border-neutral-900 pt-6 text-center">
+            <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">
+                Already in the empire? <br>
+                <a href="{% url 'login' %}" class="text-white hover:text-[#FF4500] transition-colors mt-2 inline-block">Log In</a>
+            </p>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const passwordInputs = document.querySelectorAll('input[type="password"]');
+            passwordInputs.forEach(input => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'password-wrapper';
+                input.parentNode.insertBefore(wrapper, input);
+                wrapper.appendChild(input);
+
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'toggle-password-btn';
+                btn.innerText = 'SHOW';
+                
+                btn.addEventListener('click', function() {
+                    if (input.type === 'password') {
+                        input.type = 'text';
+                        btn.innerText = 'HIDE';
+                    } else {
+                        input.type = 'password';
+                        btn.innerText = 'SHOW';
+                    }
+                });
+                wrapper.appendChild(btn);
+            });
+        });
+    </script>
+</body>
+</html>

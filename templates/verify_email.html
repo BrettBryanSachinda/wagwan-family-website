@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Verify Identity | Wagwan Family</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        
+        input {
+            width: 100%;
+            background-color: #171717;
+            border: 1px solid #262626;
+            color: white;
+            padding: 1rem;
+            font-size: 1.5rem;
+            text-align: center;
+            letter-spacing: 0.5em;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input:focus { border-color: #FF4500; }
+        label { display: block; font-size: 0.75rem; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; text-align: center;}
+    </style>
+</head>
+<body class="bg-black text-white h-screen flex items-center justify-center relative overflow-hidden selection:bg-[#FF4500] selection:text-white">
+
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#FF4500] rounded-full mix-blend-multiply filter blur-[180px] opacity-20 pointer-events-none"></div>
+
+    <div class="w-full max-w-md p-8 md:p-10 bg-neutral-950/90 backdrop-blur-md border border-neutral-900 relative z-10 shadow-2xl">
+        
+        <div class="text-center mb-8">
+            <h1 class="text-xl font-black uppercase tracking-widest text-white mb-4">Verify <span class="text-[#FF4500]">Identity</span></h1>
+            <p class="text-xs text-gray-400 font-light leading-relaxed">
+                We have sent a 6-digit transmission code to your email. Enter it below to secure your entry.
+            </p>
+        </div>
+
+        {% if messages %}
+        <div class="mb-6 space-y-2">
+            {% for message in messages %}
+            <div class="p-4 bg-neutral-900 border-l-4 border-red-500 text-white text-xs font-bold uppercase tracking-widest">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <form method="POST" action="{% url 'verify_email' %}" class="space-y-6">
+            {% csrf_token %}
+            
+            <div>
+                <label for="verification_code">Authorization Code</label>
+                <input type="text" name="verification_code" id="verification_code" maxlength="6" placeholder="000000" autocomplete="off" required>
+            </div>
+
+            <button type="submit" class="w-full mt-4 bg-[#FF4500] hover:bg-[#CC3700] text-white font-bold py-4 text-xs uppercase tracking-widest transition shadow-[0_0_15px_rgba(255,69,0,0.2)]">
+                Confirm Access
+            </button>
+        </form>
+
+        <div class="mt-8 border-t border-neutral-900 pt-6 text-center">
+            <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">
+                Didn't receive the protocol? <br>
+                <a href="{% url 'register' %}" class="text-[#FF4500] hover:text-white transition-colors uppercase tracking-widest font-bold text-xs mt-2 inline-block">
+                    Re-Enlist
+                </a>
+                <span class="text-neutral-700 mx-2">|</span>
+                <a href="{% url 'login' %}" class="text-gray-500 hover:text-white transition-colors uppercase tracking-widest font-bold text-xs mt-2 inline-block">
+                    Back to Login
+                </a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

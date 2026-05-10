@@ -1,0 +1,142 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Manager | Wagwan HQ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        ::-webkit-scrollbar { width: 5px; } ::-webkit-scrollbar-track { background: #000; } ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; } ::-webkit-scrollbar-thumb:hover { background: #FF4500; }
+    </style>
+</head>
+<body class="bg-black text-white h-screen flex overflow-hidden selection:bg-[#FF4500]">
+
+    <!-- SIDEBAR -->
+    <aside class="w-64 bg-neutral-950 border-r border-neutral-900 flex flex-col justify-between hidden md:flex flex-shrink-0">
+        <div>
+            <div class="h-20 flex items-center px-8 border-b border-neutral-900">
+                <a href="{% url 'home' %}" class="text-xl font-black tracking-widest uppercase flex flex-col">
+                    <span>Wagwan<span class="text-[#FF4500]">Family</span></span>
+                    <span class="text-[0.55rem] text-gray-500 tracking-widest">FOUNDER HQ</span>
+                </a>
+            </div>
+            <nav class="mt-8 px-4 space-y-1">
+                <a href="{% url 'founder_dashboard' %}" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-neutral-900 transition-colors text-sm font-bold uppercase tracking-wide">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                    Overview
+                </a>
+                <a href="{% url 'content_manager' %}" class="flex items-center gap-3 px-4 py-3 bg-[#FF4500]/10 text-[#FF4500] border-l-2 border-[#FF4500] text-sm font-bold uppercase tracking-wide">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
+                    Content
+                </a>
+                <a href="{% url 'user_manager' %}" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-neutral-900 transition-colors text-sm font-bold uppercase tracking-wide">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    Members
+                </a>
+                <a href="{% url 'subscriber_manager' %}" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-neutral-900 transition-colors text-sm font-bold uppercase tracking-wide">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    Subscribers
+                </a>
+                <a href="{% url 'command_center_tools' %}" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-neutral-900 transition-colors text-sm font-bold uppercase tracking-wide">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    Tracking
+                </a>
+            </nav>
+        </div>
+        <div class="p-4 border-t border-neutral-900">
+            <div class="flex items-center gap-3 px-4 py-3">
+                <div class="w-8 h-8 rounded-full bg-[#FF4500] flex items-center justify-center text-white font-black text-xs">{{ request.user.username|slice:":1"|upper }}</div>
+                <div class="flex flex-col">
+                    <span class="text-xs font-bold text-white uppercase tracking-widest">{{ request.user.username }}</span>
+                    <a href="{% url 'logout' %}" class="text-[0.6rem] text-gray-500 hover:text-[#FF4500] uppercase tracking-wider transition-colors">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="flex-1 overflow-y-auto bg-black">
+        <div class="p-8 md:p-12 max-w-7xl mx-auto">
+
+            {% if messages %}
+            <div class="mb-6 space-y-2">
+                {% for message in messages %}
+                <div class="p-4 bg-neutral-900 border-l-4 {% if message.tags == 'error' %}border-red-500{% else %}border-[#FF4500]{% endif %} text-sm font-bold uppercase tracking-widest text-white">{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="flex items-end justify-between mb-10">
+                <div>
+                    <span class="text-[0.6rem] font-black text-[#FF4500] uppercase tracking-[0.3em] block mb-2">Founder HQ</span>
+                    <h1 class="text-3xl font-black text-white uppercase tracking-widest">Content <span class="text-[#FF4500]">Manager</span></h1>
+                </div>
+                <a href="{% url 'content_create' %}" class="px-6 py-3 bg-[#FF4500] hover:bg-[#CC3700] text-white font-black text-xs uppercase tracking-widest transition flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                    New Post
+                </a>
+            </div>
+
+            <!-- Filter tabs -->
+            <div class="flex gap-4 mb-8 border-b border-neutral-900 pb-4">
+                <span class="text-xs font-black text-white uppercase tracking-widest">All ({{ articles|length }})</span>
+            </div>
+
+            <div class="bg-neutral-950 border border-neutral-900 overflow-hidden">
+                <table class="w-full text-left">
+                    <thead class="border-b border-neutral-800 bg-neutral-900/40">
+                        <tr>
+                            <th class="px-6 py-4 text-[0.6rem] font-black text-gray-500 uppercase tracking-widest">Title</th>
+                            <th class="px-6 py-4 text-[0.6rem] font-black text-gray-500 uppercase tracking-widest">Category</th>
+                            <th class="px-6 py-4 text-[0.6rem] font-black text-gray-500 uppercase tracking-widest">Type</th>
+                            <th class="px-6 py-4 text-[0.6rem] font-black text-gray-500 uppercase tracking-widest">Status</th>
+                            <th class="px-6 py-4 text-[0.6rem] font-black text-gray-500 uppercase tracking-widest">Premium</th>
+                            <th class="px-6 py-4 text-[0.6rem] font-black text-gray-500 uppercase tracking-widest text-right">Views</th>
+                            <th class="px-6 py-4 text-[0.6rem] font-black text-gray-500 uppercase tracking-widest text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-neutral-900">
+                        {% for article in articles %}
+                        <tr class="hover:bg-neutral-900/30 transition-colors group">
+                            <td class="px-6 py-4">
+                                <span class="text-white font-bold text-sm">{{ article.title|truncatechars:40 }}</span>
+                                <span class="text-gray-600 text-xs block mt-0.5">{{ article.created_at|date:"M d, Y" }}</span>
+                            </td>
+                            <td class="px-6 py-4 text-gray-500 text-xs uppercase tracking-widest">{{ article.category.name|default:"—" }}</td>
+                            <td class="px-6 py-4 text-gray-500 text-xs uppercase tracking-widest">{{ article.get_content_type_display }}</td>
+                            <td class="px-6 py-4">
+                                <span class="text-[0.6rem] font-black uppercase tracking-widest px-2 py-1 {% if article.status == 'published' %}bg-green-900/30 text-green-400 border border-green-900{% else %}bg-neutral-800 text-gray-500{% endif %}">
+                                    {{ article.status }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4">
+                                {% if article.is_premium %}
+                                <span class="text-[0.6rem] font-black text-[#FF4500] uppercase tracking-widest">🔒 Premium</span>
+                                {% else %}
+                                <span class="text-neutral-700 text-[0.6rem] uppercase">Free</span>
+                                {% endif %}
+                            </td>
+                            <td class="px-6 py-4 text-right text-[#FF4500] font-black">{{ article.views_count }}</td>
+                            <td class="px-6 py-4 text-right">
+                                <div class="flex items-center justify-end gap-3">
+                                    <a href="{% url 'content_edit' article.id %}" class="text-xs font-bold text-gray-400 hover:text-white uppercase tracking-widest transition-colors">Edit</a>
+                                    <form method="POST" action="{% url 'content_delete' article.id %}" onsubmit="return confirm('Delete \'{{ article.title }}\'? This cannot be undone.')">
+                                        {% csrf_token %}
+                                        <button type="submit" class="text-xs font-bold text-gray-700 hover:text-red-500 uppercase tracking-widest transition-colors">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="7" class="px-6 py-16 text-center text-gray-700 text-xs uppercase tracking-widest">No content yet. Drop the first post.</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
