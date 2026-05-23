@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1', '.onrender.com').split(',')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,.onrender.com').split(',')
 
 # ================================================================
 # APPLICATIONS
@@ -77,9 +77,15 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # ================================================================
 # DATABASE
 # ================================================================
+# Check if we are running on Render's servers
+IS_ON_RENDER = os.environ.get('RENDER') == 'true'
+
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL')
+        default=os.environ.get('DATABASE_URL'),
+        conn_max_age=600,
+        # Enforce SSL only on Render, keep it off for local Windows development
+        ssl_require=IS_ON_RENDER 
     )
 }
 
