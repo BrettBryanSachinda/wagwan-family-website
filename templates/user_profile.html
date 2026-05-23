@@ -1,0 +1,183 @@
+<!-- stylelint-disable -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="pt-32 pb-20 bg-black px-4 min-h-screen">
+    <div class="max-w-4xl mx-auto">
+
+        <!-- Profile Header -->
+        <div class="bg-neutral-950 border border-neutral-900 p-8 md:p-12 mb-8 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 pointer-events-none" style="background: radial-gradient(ellipse at top right, rgba(255,69,0,0.06) 0%, transparent 70%);"></div>
+
+            <div class="flex flex-col md:flex-row items-start md:items-center gap-8 relative z-10">
+
+                <!-- Avatar -->
+                <div class="flex-shrink-0">
+                    {% if profile and profile.profile_picture %}
+                    <img src="{{ profile.profile_picture.url }}" alt="{{ profile_user.username }}" class="w-24 h-24 object-cover border-2 border-[#FF4500]">
+                    {% else %}
+                    <div class="w-24 h-24 bg-neutral-800 border-2 border-neutral-700 flex items-center justify-center">
+                        <span class="text-4xl font-black text-white">{{ profile_user.username|slice:":1"|upper }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Identity -->
+                <div class="flex-1">
+                    <div class="flex flex-wrap items-center gap-3 mb-2">
+                        <h1 class="text-3xl font-black uppercase tracking-widest text-white">{{ profile_user.username }}</h1>
+                        {% if profile and profile.is_premium_member %}
+                        <span class="text-[0.6rem] font-black uppercase tracking-widest px-3 py-1 border border-[#FF4500]/60 text-[#FF4500] bg-[#FF4500]/10">Premium</span>
+                        {% endif %}
+                        {% if profile_user.is_staff %}
+                        <span class="text-[0.6rem] font-black uppercase tracking-widest px-3 py-1 border border-white/20 text-white bg-white/5">Founder</span>
+                        {% endif %}
+                    </div>
+
+                    {% if streak %}
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-sm font-black uppercase tracking-widest" style="color: {{ streak.rank_color }};">{{ streak.rank_title }}</span>
+                        <span class="text-neutral-700">•</span>
+                        <span class="text-gray-500 text-xs uppercase tracking-widest">Member since {{ profile_user.date_joined|date:"M Y" }}</span>
+                    </div>
+                    {% endif %}
+
+                    {% if profile and profile.bio %}
+                    <p class="text-gray-400 font-light text-sm leading-relaxed max-w-lg">{{ profile.bio }}</p>
+                    {% else %}
+                    <p class="text-neutral-700 font-light text-sm italic">No bio set yet.</p>
+                    {% endif %}
+
+                    {% if is_own_profile %}
+                    <div class="mt-6 flex gap-3">
+                        <a href="{% url 'arsenal_settings' %}" class="px-5 py-2 bg-[#FF4500] hover:bg-[#CC3700] text-white font-black uppercase tracking-widest text-xs transition-colors">Edit Profile</a>
+                        <a href="{% url 'my_arsenal' %}" class="px-5 py-2 border border-neutral-700 hover:border-white text-white font-bold uppercase tracking-widest text-xs transition-colors">My Arsenal</a>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Global rank -->
+                {% if rank_position %}
+                <div class="text-center flex-shrink-0">
+                    <div class="w-20 h-20 border {% if rank_position == 1 %}border-[#FF4500] bg-[#FF4500]/10{% else %}border-neutral-800 bg-neutral-900{% endif %} flex flex-col items-center justify-center">
+                        <span class="text-2xl font-black {% if rank_position == 1 %}text-[#FF4500]{% else %}text-white{% endif %}">#{{ rank_position }}</span>
+                        <span class="text-[0.55rem] text-gray-600 uppercase tracking-widest">Global</span>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="bg-neutral-950 border border-neutral-900 p-6 text-center hover:border-[#FF4500]/40 transition-colors">
+                <span class="text-4xl font-black text-[#FF4500] block mb-1">{% if streak %}{{ streak.current_streak }}{% else %}0{% endif %}</span>
+                <span class="text-gray-600 text-[0.6rem] uppercase tracking-widest font-bold">Day Streak</span>
+            </div>
+            <div class="bg-neutral-950 border border-neutral-900 p-6 text-center hover:border-[#FF4500]/40 transition-colors">
+                <span class="text-4xl font-black text-white block mb-1">{% if streak %}{{ streak.best_streak }}{% else %}0{% endif %}</span>
+                <span class="text-gray-600 text-[0.6rem] uppercase tracking-widest font-bold">Best Streak</span>
+            </div>
+            <div class="bg-neutral-950 border border-neutral-900 p-6 text-center hover:border-[#FF4500]/40 transition-colors">
+                <span class="text-4xl font-black text-white block mb-1">{{ completed_missions }}</span>
+                <span class="text-gray-600 text-[0.6rem] uppercase tracking-widest font-bold">Missions Done</span>
+            </div>
+            <div class="bg-neutral-950 border border-neutral-900 p-6 text-center hover:border-[#FF4500]/40 transition-colors">
+                <span class="text-4xl font-black text-white block mb-1">{{ total_habits }}</span>
+                <span class="text-gray-600 text-[0.6rem] uppercase tracking-widest font-bold">Active Habits</span>
+            </div>
+        </div>
+
+        <!-- Rank Ladder -->
+        {% if streak %}
+        <div class="bg-neutral-950 border border-neutral-900 p-8 mb-8">
+            <h2 class="text-sm font-black uppercase tracking-widest text-white mb-8 border-b border-neutral-800 pb-4">Rank <span class="text-[#FF4500]">Progress</span></h2>
+
+            <div class="space-y-6">
+                <!-- Initiate: Progress from 0 to 7 days -->
+                <div class="flex items-center gap-4">
+                    <div class="w-24 text-[0.6rem] font-black uppercase tracking-widest text-neutral-500 flex-shrink-0">Initiate</div>
+                    <div class="flex-1 h-1.5 bg-neutral-800 rounded-full overflow-hidden">
+                        {% widthratio streak.current_streak 7 100 as initiate_width %}
+                        <div class="h-1.5 bg-neutral-600 rounded-full" style="width:{% if initiate_width > 100 %}100{% else %}{{ initiate_width }}{% endif %}%"></div>
+                    </div>
+                    <div class="text-[0.6rem] text-neutral-600 uppercase w-16 text-right flex-shrink-0">{{ streak.current_streak }}/7</div>
+                    {% if streak.rank_title == "Initiate" %}<span class="text-[0.55rem] text-[#FF4500] font-black uppercase flex-shrink-0">You</span>{% endif %}
+                </div>
+
+                <!-- Warrior: Progress from 7 to 30 days -->
+                <div class="flex items-center gap-4">
+                    <div class="w-24 text-[0.6rem] font-black uppercase tracking-widest {% if streak.current_streak >= 7 %}text-neutral-400{% else %}text-neutral-700{% endif %} flex-shrink-0">Warrior</div>
+                    <div class="flex-1 h-1.5 bg-neutral-800 rounded-full overflow-hidden">
+                        {% if streak.current_streak >= 7 %}
+                            {% widthratio streak.current_streak 30 100 as warrior_width %}
+                            <div class="h-1.5 bg-neutral-400 rounded-full" style="width:{% if warrior_width > 100 %}100{% else %}{{ warrior_width }}{% endif %}%"></div>
+                        {% else %}
+                            {% widthratio streak.current_streak 7 100 as warrior_progress %}
+                            <div class="h-1.5 bg-neutral-700 rounded-full" style="width:{{ warrior_progress }}%"></div>
+                        {% endif %}
+                    </div>
+                    <div class="text-[0.6rem] {% if streak.current_streak >= 7 %}text-neutral-400{% else %}text-neutral-700{% endif %} uppercase w-16 text-right flex-shrink-0">{{ streak.current_streak }}/30</div>
+                    {% if streak.rank_title == "Warrior" %}<span class="text-[0.55rem] text-[#FF4500] font-black uppercase flex-shrink-0">You</span>{% endif %}
+                </div>
+
+                <!-- Commander: Progress from 30 to 90 days -->
+                <div class="flex items-center gap-4">
+                    <div class="w-24 text-[0.6rem] font-black uppercase tracking-widest {% if streak.current_streak >= 30 %}text-white{% else %}text-neutral-700{% endif %} flex-shrink-0">Commander</div>
+                    <div class="flex-1 h-1.5 bg-neutral-800 rounded-full overflow-hidden">
+                        {% if streak.current_streak >= 30 %}
+                            {% widthratio streak.current_streak 90 100 as commander_width %}
+                            <div class="h-1.5 bg-white rounded-full" style="width:{% if commander_width > 100 %}100{% else %}{{ commander_width }}{% endif %}%"></div>
+                        {% else %}
+                            {% widthratio streak.current_streak 30 100 as commander_progress %}
+                            <div class="h-1.5 bg-neutral-700 rounded-full" style="width:{{ commander_progress }}%"></div>
+                        {% endif %}
+                    </div>
+                    <div class="text-[0.6rem] {% if streak.current_streak >= 30 %}text-white{% else %}text-neutral-700{% endif %} uppercase w-16 text-right flex-shrink-0">{{ streak.current_streak }}/90</div>
+                    {% if streak.rank_title == "Commander" %}<span class="text-[0.55rem] text-[#FF4500] font-black uppercase flex-shrink-0">You</span>{% endif %}
+                </div>
+
+                <!-- Emperor: Maximum rank achieved at 90+ days -->
+                <div class="flex items-center gap-4">
+                    <div class="w-24 text-[0.6rem] font-black uppercase tracking-widest {% if streak.current_streak >= 90 %}text-[#FF4500]{% else %}text-neutral-700{% endif %} flex-shrink-0">Emperor</div>
+                    <div class="flex-1 h-1.5 bg-neutral-800 rounded-full overflow-hidden">
+                        {% if streak.current_streak >= 90 %}
+                            <div class="h-1.5 bg-[#FF4500] rounded-full" style="width:100%"></div>
+                        {% else %}
+                            {% widthratio streak.current_streak 90 100 as emperor_progress %}
+                            <div class="h-1.5 bg-neutral-700 rounded-full" style="width:{{ emperor_progress }}%"></div>
+                        {% endif %}
+                    </div>
+                    <div class="text-[0.6rem] {% if streak.current_streak >= 90 %}text-[#FF4500]{% else %}text-neutral-700{% endif %} uppercase w-16 text-right flex-shrink-0">{{ streak.current_streak }}/90</div>
+                    {% if streak.rank_title == "Emperor" %}<span class="text-[0.55rem] text-[#FF4500] font-black uppercase flex-shrink-0">You</span>{% endif %}
+                </div>
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-neutral-800 flex justify-between items-center">
+                <div>
+                    <span class="font-black text-lg" style="color: {{ streak.rank_color }};">{{ streak.rank_title }}</span>
+                    <span class="text-gray-600 text-xs uppercase tracking-widest ml-2">Current Rank</span>
+                </div>
+                <div class="text-right text-gray-600 text-xs uppercase tracking-widest">
+                    {% if streak.rank_title == "Initiate" %}{{ streak.current_streak }} / 7 days to Warrior
+                    {% elif streak.rank_title == "Warrior" %}{{ streak.current_streak }} / 30 days to Commander
+                    {% elif streak.rank_title == "Commander" %}{{ streak.current_streak }} / 90 days to Emperor
+                    {% else %}Maximum rank achieved
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Bottom nav -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-between items-center border-t border-neutral-900 pt-8">
+            <a href="{% url 'leaderboard' %}" class="text-xs font-bold text-gray-500 hover:text-white uppercase tracking-widest transition-colors">← View Full Leaderboard</a>
+            {% if not user.is_authenticated %}
+            <a href="{% url 'register' %}" class="px-8 py-3 bg-[#FF4500] hover:bg-[#CC3700] text-white font-black uppercase tracking-widest text-xs transition-colors">Join The Family</a>
+            {% endif %}
+        </div>
+
+    </div>
+</section>
+{% endblock content %}

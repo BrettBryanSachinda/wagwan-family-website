@@ -25,36 +25,34 @@
                     <span class="text-[0.60rem] text-gray-500 tracking-widest">COMMAND CENTER</span>
                 </a>
             </div>
-
-            <nav class="mt-8 px-4 space-y-2">
-                <a href="{% url 'founder_dashboard' %}" class="flex items-center gap-3 px-4 py-3 bg-[#FF4500]/10 text-[#FF4500] border-l-2 border-[#FF4500] text-sm font-bold uppercase tracking-wide">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-                    Overview
-                </a>
-                <a href="{% url 'content_manager' %}" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-neutral-900 transition-colors text-sm font-bold uppercase tracking-wide">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
-                    Content
-                </a>
-                <a href="{% url 'user_manager' %}" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-neutral-900 transition-colors text-sm font-bold uppercase tracking-wide">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                    Community
-                </a>
-                <a href="{% url 'subscriber_manager' %}" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-neutral-900 transition-colors text-sm font-bold uppercase tracking-wide">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                    Subscribers
-                </a>
-                <a href="{% url 'command_center_tools' %}" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-neutral-900 transition-colors text-sm font-bold uppercase tracking-wide">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                    Tracking
-                </a>
-            </nav>
+             <nav class="mt-8 px-4 space-y-2">
+    <a href="{% url 'founder_dashboard' %}" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-neutral-900 transition-colors text-sm font-bold uppercase tracking-wide">
+        Overview
+    </a>
+    <a href="{% url 'hq_content_manager' %}" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-neutral-900 transition-colors text-sm font-bold uppercase tracking-wide">
+        Content
+    </a>
+    <a href="{% url 'hq_user_manager' %}" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-neutral-900 transition-colors text-sm font-bold uppercase tracking-wide">
+        Community
+    </a>
+    <a href="{% url 'hq_subscriber_manager' %}" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-neutral-900 transition-colors text-sm font-bold uppercase tracking-wide">
+        Subscribers
+    </a>
+    <a href="{% url 'command_center_tools' %}" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-neutral-900 transition-colors text-sm font-bold uppercase tracking-wide">
+        Tracking
+    </a>
+</nav>
         </div>
 
         <div class="p-4 border-t border-neutral-900">
             <div class="flex items-center gap-3 px-4 py-3">
-                <div class="w-8 h-8 rounded-full bg-[#FF4500] flex items-center justify-center text-white font-bold text-xs">S</div>
+                {% if request.user.profile.profile_picture %}
+                <img src="{{ request.user.profile.profile_picture.url }}" alt="{{ request.user.username }}" class="w-8 h-8 rounded-full object-cover border border-[#FF4500]">
+                {% else %}
+                <div class="w-8 h-8 rounded-full bg-[#FF4500] flex items-center justify-center text-white font-bold text-xs">{{ request.user.username|slice:":1"|upper }}</div>
+                {% endif %}
                 <div class="flex flex-col">
-                    <span class="text-xs font-bold text-white uppercase tracking-widest">{{ request.user.username }}</span>
+                    <a href="{% url 'user_profile' request.user.username %}" class="text-xs font-bold text-white uppercase tracking-widest hover:text-[#FF4500] transition-colors">{{ request.user.username }}</a>
                     <a href="{% url 'logout' %}" class="text-[0.65rem] text-gray-500 hover:text-[#FF4500] uppercase tracking-wider">Log Out</a>
                 </div>
             </div>
@@ -87,7 +85,7 @@
                 </div>
 
                 <div class="flex gap-4">
-                    <a href="/admin/core/article/add/" class="px-6 py-3 bg-[#FF4500] hover:bg-[#CC3700] text-white font-bold text-xs uppercase tracking-widest transition shadow-[0_0_15px_rgba(255,69,0,0.3)] flex items-center gap-2">
+                    <a href="{% url 'hq_content_create' %}" class="px-6 py-3 bg-[#FF4500] hover:bg-[#CC3700] text-white font-bold text-xs uppercase tracking-widest transition shadow-[0_0_15px_rgba(255,69,0,0.3)] flex items-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                         Advanced Post
                     </a>
@@ -98,7 +96,7 @@
                 <div class="bg-neutral-900 border border-neutral-800 p-6 flex flex-col justify-between group hover:border-[#FF4500] transition-colors">
                     <span class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-4 block">Total Members</span>
                     <div class="flex items-end justify-between">
-                        <span class="text-4xl font-black text-white group-hover:text-[#FF4500] transition-colors">{{ total_members }}</span>
+                        <span class="text-4xl font-black text-white group-hover:text-[#FF4500] transition-colors">{{ total_users }}</span>
                         <svg class="w-8 h-8 text-neutral-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                     </div>
                 </div>
@@ -119,7 +117,7 @@
                 <div class="bg-neutral-900 border border-neutral-800 p-6 flex flex-col justify-between group hover:border-[#FF4500] transition-colors">
                     <span class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-4 block">Published Content</span>
                     <div class="flex items-end justify-between">
-                        <span class="text-4xl font-black text-white group-hover:text-[#FF4500] transition-colors">{{ published_articles }}</span>
+                        <span class="text-4xl font-black text-white group-hover:text-[#FF4500] transition-colors">{{ total_articles }}</span>
                         <svg class="w-8 h-8 text-neutral-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
                     </div>
                 </div>
@@ -130,7 +128,7 @@
                 <div class="lg:col-span-2 bg-neutral-950 border border-neutral-900 p-6 md:p-8">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-lg font-bold uppercase tracking-widest text-white">Top Performing Content</h2>
-                        <a href="/admin/core/article/" class="text-[#FF4500] text-xs font-bold uppercase tracking-widest hover:text-white transition-colors">View All</a>
+                        <a href="{% url 'hq_content_manager' %}" class="text-[#FF4500] text-xs font-bold uppercase tracking-widest hover:text-white transition-colors">View All</a>
                     </div>
                     
                     <div class="overflow-x-auto">
@@ -148,7 +146,7 @@
                                     <td class="py-4 font-medium text-gray-200 group-hover:text-white">{{ post.title }}</td>
                                     <td class="py-4 text-right font-black text-[#FF4500]">{{ post.views_count }}</td>
                                     <td class="py-4 text-right">
-                                        <a href="/admin/core/article/{{ post.id }}/change/" class="text-xs text-gray-500 hover:text-white uppercase tracking-widest font-bold">Edit</a>
+                                        <a href="{% url 'hq_content_edit' post.id %}" class="text-xs text-gray-500 hover:text-white uppercase tracking-widest font-bold">Edit</a>
                                     </td>
                                 </tr>
                                 {% empty %}
@@ -160,46 +158,81 @@
                         </table>
                     </div>
                 </div>
-
                 <div class="bg-neutral-950 border border-neutral-900 p-6 md:p-8 flex flex-col">
-                    <h2 class="text-lg font-bold uppercase tracking-widest text-white mb-6 flex items-center gap-2">
-                        <svg class="w-5 h-5 text-[#FF4500]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                        Quick Drop
-                    </h2>
-                    
-                <form action="{% url 'quick_drop_upload' %}" method="POST" enctype="multipart/form-data" class="flex-1 flex flex-col space-y-4">
-                        {% csrf_token %}
-                        
-                        <input type="text" name="title" placeholder="Optional Title..." class="w-full bg-neutral-900 border border-neutral-800 text-white px-4 py-3 text-sm focus:outline-none focus:border-[#FF4500] placeholder-gray-600">
+    <h2 class="text-lg font-bold uppercase tracking-widest text-white mb-6 flex items-center gap-2">
+        <svg class="w-5 h-5 text-[#FF4500]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+        </svg>
+        Quick Drop
+    </h2>
+    
+    <form action="{% url 'quick_drop_upload' %}" method="POST" enctype="multipart/form-data" class="flex-1 flex flex-col space-y-4">
+        {% csrf_token %}
+        
+        <input type="text" name="title" placeholder="Optional Title..." class="w-full bg-neutral-900 border border-neutral-800 text-white px-4 py-3 text-sm focus:outline-none focus:border-[#FF4500] placeholder-gray-600">
 
-                        <div class="relative flex-1 min-h-[150px] border-2 border-dashed border-neutral-700 hover:border-[#FF4500] bg-neutral-900/50 flex flex-col items-center justify-center transition-colors group cursor-pointer">
-                            <input type="file" name="media_file" accept="image/*,video/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" required id="mediaInput">
-                            
-                            <svg class="w-8 h-8 text-gray-500 group-hover:text-[#FF4500] mb-2 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                            </svg>
-                            <span class="text-xs font-bold text-gray-400 uppercase tracking-widest text-center px-4" id="fileNameDisplay">Tap to snap a photo/video<br>or drag file here</span>
-                        </div>
-                        
-                        <button type="submit" class="w-full bg-[#FF4500] hover:bg-[#CC3700] text-white font-bold py-3 text-xs uppercase tracking-widest transition shadow-[0_0_15px_rgba(255,69,0,0.2)]">
-                            Publish Immediately
-                        </button>
-                    </form>   
-                </div>
-
+        <div id="dropZone" class="relative flex-1 min-h-[150px] border-2 border-dashed border-neutral-700 hover:border-[#FF4500] bg-neutral-900/50 flex flex-col items-center justify-center transition-colors group cursor-pointer">
+            <input type="file" name="media_file" accept="image/*,video/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" required id="mediaInput">
+            
+            <svg class="w-8 h-8 text-gray-500 group-hover:text-[#FF4500] mb-2 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            <span class="text-xs font-bold text-gray-400 uppercase tracking-widest text-center px-4" id="fileNameDisplay">
+                Tap to snap a photo/video<br>or drag file here
+            </span>
+        </div>
+        
+        <button type="submit" class="w-full bg-[#FF4500] hover:bg-[#CC3700] text-white font-bold py-3 text-xs uppercase tracking-widest transition shadow-[0_0_15px_rgba(255,69,0,0.2)]">
+            Publish Immediately
+        </button>
+    </form>   
+</div>
+               
             </div>
         </div>
     </main>
 
-   <script>
-        const input = document.getElementById('mediaInput');
-        const display = document.getElementById('fileNameDisplay');
-        input.addEventListener('change', function(e) {
-            if (this.files && this.files.length > 0) {
-                display.innerText = "Selected: " + this.files[0].name;
-                display.classList.add('text-[#FF4500]');
-            }
-        });
-    </script>
+  <script>
+    const input = document.getElementById('mediaInput');
+    const display = document.getElementById('fileNameDisplay');
+    const dropZone = document.getElementById('dropZone');
+
+    // Function to update the text display
+    function updateDisplay(files) {
+        if (files && files.length > 0) {
+            display.innerText = "Target Locked: " + files[0].name;
+            display.classList.add('text-[#FF4500]');
+            dropZone.classList.add('border-[#FF4500]', 'bg-neutral-900');
+        }
+    }
+
+    // 1. Handle normal click-to-select
+    input.addEventListener('change', function(e) {
+        updateDisplay(this.files);
+    });
+
+    // 2. Visual feedback when dragging over the box
+    dropZone.addEventListener('dragover', function(e) {
+        e.preventDefault(); // Required to allow dropping
+        dropZone.classList.add('border-[#FF4500]', 'bg-neutral-900');
+    });
+
+    // 3. Remove visual feedback if they drag away
+    dropZone.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        if (input.files.length === 0) {
+            dropZone.classList.remove('border-[#FF4500]', 'bg-neutral-900');
+        }
+    });
+
+    // 4. Handle the actual drop action
+    dropZone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+            input.files = e.dataTransfer.files; // Assign dropped file to the input
+            updateDisplay(e.dataTransfer.files);
+        }
+    });
+</script>
 </body>
 </html>

@@ -21,6 +21,7 @@ urlpatterns = [
 
     # --- AUTHENTICATION ---
     path('enlist/', views.register_page, name='register'),
+    path('enlist/setup/', views.profile_setup, name='profile_setup'),
     path('login/', views.login_page, name='login'),
     path('logout/', views.logout_user, name='logout'),
     path('verify-email/', views.verify_email, name='verify_email'),
@@ -44,18 +45,25 @@ urlpatterns = [
     path('headquarters/quick-drop/', views.quick_drop_upload, name='quick_drop_upload'),
     path('command-center/tools/', views.command_center_tools, name='command_center_tools'),
 
+    # --- USER PROFILES ---
+    path('profile/<str:username>/', views.user_profile, name='user_profile'),
+
+    # --- PREMIUM MEMBERSHIP ---
+    path('premium/', views.premium_upgrade, name='premium_upgrade'),
+    path('premium/request/', views.premium_request, name='premium_request'),
+
     # --- HQ: CONTENT MANAGER ---
-    path('headquarters/content/', views.content_manager, name='content_manager'),
-    path('headquarters/content/create/', views.content_create, name='content_create'),
-    path('headquarters/content/edit/<int:article_id>/', views.content_edit, name='content_edit'),
-    path('headquarters/content/delete/<int:article_id>/', views.content_delete, name='content_delete'),
+    path('headquarters/content/', views.content_manager, name='hq_content_manager'),
+    path('headquarters/content/create/', views.content_create, name='hq_content_create'),
+    path('headquarters/content/edit/<int:article_id>/', views.content_edit, name='hq_content_edit'),
+    path('headquarters/content/delete/<int:article_id>/', views.content_delete, name='hq_content_delete'),
 
     # --- HQ: USER MANAGER ---
-    path('headquarters/users/', views.user_manager, name='user_manager'),
-    path('headquarters/users/delete/<int:user_id>/', views.user_delete, name='user_delete'),
-    path('headquarters/users/toggle-premium/<int:user_id>/', views.user_toggle_premium, name='user_toggle_premium'),
+    path('headquarters/users/', views.user_manager, name='hq_user_manager'),
+    path('headquarters/users/delete/<int:user_id>/', views.user_delete, name='hq_user_delete'),
+    path('headquarters/users/toggle-premium/<int:user_id>/', views.user_toggle_premium, name='hq_user_toggle_premium'),
 
     # --- HQ: SUBSCRIBER MANAGER ---
-    path('headquarters/subscribers/', views.subscriber_manager, name='subscriber_manager'),
-    path('headquarters/subscribers/delete/<int:subscriber_id>/', views.subscriber_delete, name='subscriber_delete'),
+    path('headquarters/subscribers/', views.subscriber_manager, name='hq_subscriber_manager'),
+    path('headquarters/subscribers/delete/<int:subscriber_id>/', views.subscriber_delete, name='hq_subscriber_delete'),
 ]

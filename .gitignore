@@ -5,3 +5,4 @@ __pycache__/
 media/
 staticfiles/
 *.log
+db.sqlite3

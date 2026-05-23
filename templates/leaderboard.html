@@ -77,7 +77,7 @@
                         <td class="px-6 py-6">
                             <div class="flex flex-col">
                                 <span class="text-white font-bold tracking-wide uppercase">
-                                    {{ rank.user.username }}
+                                    <a href="{% url 'user_profile' rank.user.username %}" class="hover:text-[#FF4500] transition-colors">{{ rank.user.username }}</a>
                                     {% if rank.user == request.user %}
                                         <span class="text-[#FF4500] text-xs ml-1">(YOU)</span>
                                     {% endif %}

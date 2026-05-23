@@ -2,9 +2,11 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 from django.utils import timezone
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from datetime import timedelta
 
-# 1. USER PROFILE (Objective 2: Owned Audience)
+# --- 1. USER PROFILE ---
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     profile_picture = models.ImageField(upload_to='profiles/', blank=True, null=True)
@@ -15,7 +17,14 @@ class UserProfile(models.Model):
     def __str__(self):
         return f"{self.user.username}'s Profile"
 
-# 2. CONTENT HUB (Objective 1 & 5)
+# Signal: Auto-create Profile and Streak when a User registers
+@receiver(post_save, sender=User)
+def create_user_profile_and_streak(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.get_or_create(user=instance)
+        UserStreak.objects.get_or_create(user=instance)
+
+# --- 2. CONTENT HUB ---
 class Category(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True, blank=True)
@@ -34,30 +43,40 @@ class Category(models.Model):
 class Article(models.Model):
     CONTENT_TYPES = (('article', 'Article'), ('video', 'Video Transmission'))
     STATUS_CHOICES = (('draft', 'Draft'), ('published', 'Published'))
-
+    
     title = models.CharField(max_length=255)
-    slug = models.SlugField(unique=True, blank=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
-    content = models.TextField()
-    video_url = models.URLField(blank=True,null=True, help_text="YouTube/Vimeo link")
-    video_file = models.FileField(upload_to='videos/', blank=True, null=True)
+    slug = models.SlugField(max_length=255, unique=True, blank=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, related_name='articles')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='articles')
+    content_type = models.CharField(max_length=255, choices=CONTENT_TYPES, default='article')
+    status = models.CharField(max_length=255, choices=STATUS_CHOICES, default='draft')
     cover_image = models.ImageField(upload_to='covers/', blank=True, null=True)
-    content_type = models.CharField(max_length=20, choices=CONTENT_TYPES, default='article')
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
+    video_file = models.FileField(upload_to='videos/', blank=True, null=True)
+    video_url = models.URLField(blank=True, null=True, help_text="YouTube/Vimeo embed link")
+    content = models.TextField(blank=True, null=True)
     is_premium = models.BooleanField(default=False)
     views_count = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
+            self.slug = slugify(self.title)[:255]
         super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title
 
-# 3. DISCIPLINE ENGINE (Objective 4: Real Value)
+# --- 3. SUBSCRIBERS ---
+class Subscriber(models.Model):
+    email = models.EmailField(unique=True)
+    subscribed_at = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.email
+
+# --- 4. DISCIPLINE TRACKERS ---
 class UserStreak(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='streak')
     current_streak = models.PositiveIntegerField(default=0)
@@ -67,19 +86,24 @@ class UserStreak(models.Model):
     def update_streak(self):
         today = timezone.now().date()
         yesterday = today - timedelta(days=1)
-
         if self.last_check_in == yesterday:
             self.current_streak += 1
         elif self.last_check_in == today:
-            pass # Already updated today
+            pass  # Already checked in today
         else:
             self.current_streak = 1
-        
         if self.current_streak > self.best_streak:
             self.best_streak = self.current_streak
-            
         self.last_check_in = today
         self.save()
+
+    def check_and_reset_streak(self):
+        """Resets streak to 0 if a full day is missed."""
+        if self.last_check_in:
+            today = timezone.now().date()
+            if today - self.last_check_in > timedelta(days=1):
+                self.current_streak = 0
+                self.save()
 
     @property
     def rank_title(self):
@@ -90,14 +114,13 @@ class UserStreak(models.Model):
 
     @property
     def rank_color(self):
-        if self.current_streak >= 90: return "#FF4500" # Iconic Orange
-        if self.current_streak >= 30: return "#FFFFFF" # Pure White
-        if self.current_streak >= 7:  return "#A3A3A3" # Silver/Grey
-        return "#404040" # Dim Grey
+        if self.current_streak >= 90: return "#FF4500"
+        if self.current_streak >= 30: return "#FFFFFF"
+        if self.current_streak >= 7:  return "#A3A3A3"
+        return "#404040"
 
     def __str__(self):
         return f"{self.user.username}: {self.current_streak} Days"
-    
 
 class DisciplineEngine(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='habits')
@@ -125,12 +148,4 @@ class MissionMap(models.Model):
     is_completed = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.title
-
-class Subscriber(models.Model):
-    email = models.EmailField(unique=True)
-    subscribed_at = models.DateTimeField(auto_now_add=True)
-    is_active = models.BooleanField(default=True)
-
-    def __str__(self):
-        return self.email
+        return f"{self.user.username} - Mission: {self.title}"

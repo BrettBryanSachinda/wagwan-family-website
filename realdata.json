@@ -1,0 +1,141 @@
+[
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$3kIW6iLaaWdk4UAqMd6klm$rrEQsDjAw1qBzFc9kkKx7LmOJE6CGXbOzXlY453kSaw=",
+    "last_login": "2026-05-19T20:23:51.220Z",
+    "is_superuser": true,
+    "username": "simba",
+    "first_name": "",
+    "last_name": "",
+    "email": "1nduna121@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-05-01T16:53:06.932Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$ZDDaWMX7MMTnvU2B0hIbn9$msrzHOt3vAur0oikTjEUmA0kSOZKasm2kYocGJS5r/s=",
+    "last_login": "2026-05-19T09:05:38.998Z",
+    "is_superuser": false,
+    "username": "Bryan",
+    "first_name": "",
+    "last_name": "",
+    "email": "brettsachinda2@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-05-09T14:41:01.879Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "3cy2u6qfks51oemldpf3ki98di222sme",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQAP9lz4ZAobtsj979BsJTqoYmpT0Z_9006UGvM5N5g_P7Vt3e8-rmBBMYuPyy4OMzt0Okh2_3RcSlbescxJGI03ZxW1J-Xc_2b1B9rzBBUTIixVGToVisYpnJhoGY_JCT9MSoWQcbMhIWSwXDqKOxipEYpYbPF83lNuc:1wOKzB:Ekm3ibOy8SUu33ifELepBn8Jh-qdfYl13v1MYMjM-jA",
+    "expire_date": "2026-05-30T19:47:45.919Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "j1ln4kalwgrv8y7lpz05oxic8t2db719",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQAP9lz4ZAobtsj979BsJTqoYmpT0Z_9006UGvM5N5g_P7Vt3e8-rmBBMYuPyy4OMzt0Okh2_3RcSlbescxJGI03ZxW1J-Xc_2b1B9rzBBUTIixVGToVisYpnJhoGY_JCT9MSoWQcbMhIWSwXDqKOxipEYpYbPF83lNuc:1wOAFz:ehomTH1uxMvnLvj--o0fsG2H1XaWrR_6SAwxH4F1kfs",
+    "expire_date": "2026-05-30T08:20:23.407Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "kooxb1sbdbk5qy0hgb87qizlx3owiczr",
+  "fields": {
+    "session_data": ".eJxVjMsOgjAQAP9lz6bp0hfl6N1vaLq7xaIGEgon478bEg56nZnMG1Let5r2VtY0CQyAcPlllPlZ5kPII8_3RfEyb-tE6kjUaZu6LVJe17P9G9TcKgzgXOysdIRMaIX60AdCNuxihyYG44ofvY8YtQh7Nj5azVjGQqgphwyfL8mUN6E:1wPQyl:4bSDynsu76HXHxydbtmRAmPrzFa01X4cesyB3dCuCvI",
+    "expire_date": "2026-06-02T20:23:51.233Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "olv1pc2865v0hjkie5zbexd7g744b6c0",
+  "fields": {
+    "session_data": ".eJxVjMsOgjAQAP9lz6bp0hfl6N1vaLq7xaIGEgon478bEg56nZnMG1Let5r2VtY0CQyAcPlllPlZ5kPII8_3RfEyb-tE6kjUaZu6LVJe17P9G9TcKgzgXOysdIRMaIX60AdCNuxihyYG44ofvY8YtQh7Nj5azVjGQqgphwyfL8mUN6E:1wJTQs:nW2PKs3CAeuxXzq4_G4hMmYToIGJu0RuMBCvCIcGAds",
+    "expire_date": "2026-05-17T09:48:14.164Z"
+  }
+},
+{
+  "model": "core.userprofile",
+  "pk": 2,
+  "fields": {
+    "user": 4,
+    "profile_picture": "",
+    "bio": "",
+    "is_premium_member": false,
+    "date_joined": "2026-05-09T14:41:03.240Z"
+  }
+},
+{
+  "model": "core.userprofile",
+  "pk": 3,
+  "fields": {
+    "user": 1,
+    "profile_picture": "profiles/logo.png",
+    "bio": "Founder of WagwanFamily...BlessUp Family",
+    "is_premium_member": false,
+    "date_joined": "2026-05-20T06:55:33.811Z"
+  }
+},
+{
+  "model": "core.article",
+  "pk": 1,
+  "fields": {
+    "title": "no competing , competition ruins community progress",
+    "slug": "no-competing-competition-ruins-community-progress",
+    "category": null,
+    "author": 1,
+    "content_type": "video",
+    "status": "published",
+    "cover_image": "covers/logo.png",
+    "video_file": "videos/WhatsApp_Video_2026-05-01_at_13.07.46.mp4",
+    "video_url": null,
+    "content": "",
+    "is_premium": false,
+    "views_count": 20,
+    "created_at": "2026-05-02T21:16:33.236Z",
+    "updated_at": "2026-05-17T12:04:27.440Z"
+  }
+},
+{
+  "model": "core.subscriber",
+  "pk": 2,
+  "fields": {
+    "email": "brettsachinda2@gmail.com",
+    "subscribed_at": "2026-05-09T14:41:03.259Z",
+    "is_active": true
+  }
+},
+{
+  "model": "core.userstreak",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "current_streak": 0,
+    "best_streak": 0,
+    "last_check_in": null
+  }
+},
+{
+  "model": "core.userstreak",
+  "pk": 3,
+  "fields": {
+    "user": 4,
+    "current_streak": 0,
+    "best_streak": 0,
+    "last_check_in": null
+  }
+}
+]
