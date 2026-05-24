@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,.onrender.com').split(',')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,.onrender.com,wagwanfamily.co.zw,www.wagwanfamily.co.zw').split(',')
 
 # ================================================================
 # APPLICATIONS
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
+    'storages', # ADD THIS (Replaced Cloudinary)
 ]
 
 MIDDLEWARE = [
@@ -112,11 +113,26 @@ USE_TZ = True
 # ================================================================
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # needed for collectstatic in production
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# ================================================================
+# SUPABASE S3 MEDIA STORAGE
+# ================================================================
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_ENDPOINT_URL = os.environ.get('AWS_S3_ENDPOINT_URL')
+AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME')
+
+# Ensure files aren't overwritten if they happen to share the exact same name
+AWS_S3_FILE_OVERWRITE = False
+
+# Tell Django to use this for all user-uploaded media (profile pics, etc.)
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # ================================================================
 # AUTHENTICATION
