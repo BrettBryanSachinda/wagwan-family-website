@@ -144,6 +144,9 @@ STORAGES = {
     },
 }
 
+# Tell WhiteNoise not to crash the server if a static file is missing
+WHITENOISE_MANIFEST_STRICT = False
+
 # ================================================================
 # AUTHENTICATION
 # ================================================================
