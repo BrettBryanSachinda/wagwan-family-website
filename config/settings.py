@@ -131,6 +131,10 @@ AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME')
 # Ensure files aren't overwritten if they happen to share the exact same name
 AWS_S3_FILE_OVERWRITE = False
 
+# CRITICAL FIXES FOR SUPABASE:
+AWS_S3_ADDRESSING_STYLE = 'path'
+AWS_QUERYSTRING_AUTH = False
+
 # Tell Django to use this for all user-uploaded media (profile pics, etc.)
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
