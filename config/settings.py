@@ -114,7 +114,6 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -128,19 +127,22 @@ AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_ENDPOINT_URL = os.environ.get('AWS_S3_ENDPOINT_URL')
 AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME')
 
-# Ensure files aren't overwritten if they happen to share the exact same name
 AWS_S3_FILE_OVERWRITE = False
-
-# CRITICAL FIXES FOR SUPABASE:
 AWS_S3_ADDRESSING_STYLE = 'path'
 AWS_QUERYSTRING_AUTH = False
 
-# THE MAGIC FIX: Force Django to use Supabase's specific public viewing URL format
 if AWS_STORAGE_BUCKET_NAME:
     AWS_S3_CUSTOM_DOMAIN = f'gzlnhhhezabayboxregl.supabase.co/storage/v1/object/public/{AWS_STORAGE_BUCKET_NAME}'
 
-# Tell Django to use this for all user-uploaded media (profile pics, etc.)
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# THE FIX: Modern Django 5.1+ Storage Dictionary
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 # ================================================================
 # AUTHENTICATION
