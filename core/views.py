@@ -199,6 +199,9 @@ def discipline_engine(request):
 @login_required
 def arsenal_settings(request):
     """User settings: update profile or delete account with validation."""
+    # 1. Fetch the user's profile right away so we can update it and send it to the template
+    profile, _ = UserProfile.objects.get_or_create(user=request.user)
+
     if request.method == 'POST':
         action = request.POST.get('action')
 
@@ -219,6 +222,10 @@ def arsenal_settings(request):
         # Default: update profile with validation
         username = request.POST.get('username', '').strip()
         email = request.POST.get('email', '').strip()
+        
+        # 2. ADDED: Grab the bio and the uploaded file!
+        bio = request.POST.get('bio', '').strip()
+        profile_picture = request.FILES.get('profile_picture')
         
         errors = []
         
@@ -249,11 +256,20 @@ def arsenal_settings(request):
                 messages.error(request, error)
             return redirect('arsenal_settings')
         
+        # 3. Save the base User model (Username & Email)
         request.user.save()
+        
+        # 4. ADDED: Save the UserProfile model (Bio & Profile Picture)
+        profile.bio = bio
+        if profile_picture:
+            profile.profile_picture = profile_picture
+        profile.save()
+
         messages.success(request, 'Settings updated successfully.')
         return redirect('my_arsenal')
 
-    return render(request, 'arsenal_settings.html')
+    # 5. ADDED: Pass the profile to the template so the current bio and picture load properly
+    return render(request, 'arsenal_settings.html', {'profile': profile})
 
 @login_required
 def tools_dashboard(request):

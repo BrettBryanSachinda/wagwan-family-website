@@ -135,6 +135,10 @@ AWS_S3_FILE_OVERWRITE = False
 AWS_S3_ADDRESSING_STYLE = 'path'
 AWS_QUERYSTRING_AUTH = False
 
+# THE MAGIC FIX: Force Django to use Supabase's specific public viewing URL format
+if AWS_STORAGE_BUCKET_NAME:
+    AWS_S3_CUSTOM_DOMAIN = f'gzlnhhhezabayboxregl.supabase.co/storage/v1/object/public/{AWS_STORAGE_BUCKET_NAME}'
+
 # Tell Django to use this for all user-uploaded media (profile pics, etc.)
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
