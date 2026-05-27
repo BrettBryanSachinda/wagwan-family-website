@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
 from django.http import JsonResponse
 from django.db import IntegrityError
@@ -13,6 +12,7 @@ from datetime import timedelta, datetime
 import re
 from .models import Article, Subscriber, Category, UserProfile, UserStreak, DisciplineEngine, DisciplineLog, MissionMap
 from .forms import WagwanRegistrationForm, UserProfileForm
+from .decorators import staff_required, superuser_required
 
 
 # ================================================================
@@ -452,7 +452,7 @@ def mission_map_detail(request):
 # FOUNDER HEADQUARTERS
 # ================================================================
 
-@staff_member_required
+@staff_required
 def founder_dashboard(request):
     from django.contrib.auth.models import User
     seven_days_ago = timezone.now() - timedelta(days=7)
@@ -471,7 +471,7 @@ def founder_dashboard(request):
         'top_streaks': top_streaks,
     })
 
-@staff_member_required
+@staff_required
 def quick_drop_upload(request):
     if request.method == 'POST' and request.FILES.get('media_file'):
         media_file = request.FILES['media_file']
@@ -508,7 +508,7 @@ def quick_drop_upload(request):
 
     return redirect('founder_dashboard')
 
-@staff_member_required
+@staff_required
 def command_center_tools(request):
     recent_logs = DisciplineLog.objects.select_related('habit__user').order_by('-date_completed')[:15]
     top_streaks = UserStreak.objects.select_related('user').order_by('-current_streak')[:5]
@@ -526,7 +526,7 @@ def command_center_tools(request):
 # HQ: CONTENT MANAGER (Full CRUD — no Django admin needed)
 # ================================================================
 
-@staff_member_required
+@staff_required
 def content_manager(request):
     articles = Article.objects.select_related('category', 'author').order_by('-created_at')
     categories = Category.objects.all()
@@ -535,7 +535,7 @@ def content_manager(request):
         'categories': categories,
     })
 
-@staff_member_required
+@staff_required
 def content_create(request):
     categories = Category.objects.all()
     if request.method == 'POST':
@@ -569,7 +569,7 @@ def content_create(request):
             return redirect('hq_content_manager')
     return render(request, 'hq_content_create.html', {'categories': categories})
 
-@staff_member_required
+@staff_required
 def content_edit(request, article_id):
     article = get_object_or_404(Article, id=article_id)
     categories = Category.objects.all()
@@ -589,7 +589,7 @@ def content_edit(request, article_id):
         return redirect('hq_content_manager')
     return render(request, 'hq_content_edit.html', {'article': article, 'categories': categories})
 
-@staff_member_required
+@staff_required
 def content_delete(request, article_id):
     article = get_object_or_404(Article, id=article_id)
     if request.method == 'POST':
@@ -603,13 +603,13 @@ def content_delete(request, article_id):
 # HQ: USER MANAGER
 # ================================================================
 
-@staff_member_required
+@staff_required
 def user_manager(request):
     from django.contrib.auth.models import User
     users = User.objects.select_related('profile', 'streak').order_by('-date_joined')
     return render(request, 'hq_user_manager.html', {'users': users})
 
-@staff_member_required
+@staff_required
 def user_delete(request, user_id):
     from django.contrib.auth.models import User
     user = get_object_or_404(User, id=user_id)
@@ -622,7 +622,7 @@ def user_delete(request, user_id):
         messages.success(request, f'"{username}" removed.')
     return redirect('hq_user_manager')
 
-@staff_member_required
+@staff_required
 def user_toggle_premium(request, user_id):
     profile = get_object_or_404(UserProfile, user__id=user_id)
     if request.method == 'POST':
@@ -637,12 +637,12 @@ def user_toggle_premium(request, user_id):
 # HQ: SUBSCRIBER MANAGER
 # ================================================================
 
-@staff_member_required
+@staff_required
 def subscriber_manager(request):
     subscribers = Subscriber.objects.order_by('-subscribed_at')
     return render(request, 'hq_subscriber_manager.html', {'subscribers': subscribers})
 
-@staff_member_required
+@staff_required
 def subscriber_delete(request, subscriber_id):
     sub = get_object_or_404(Subscriber, id=subscriber_id)
     if request.method == 'POST':
